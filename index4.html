@@ -1,0 +1,2361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiritual Growth</title>
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #8892b0;
+            --accent: #9c27b0;
+            --accent-light: #ce93d8;
+            --success: #4caf50;
+            --success-light: #81c784;
+            --danger: #ff6b6b;
+            --warning: #ff9800;
+            --info: #64b5f6;
+            --gold: #ffd700;
+            --border: rgba(255, 255, 255, 0.1);
+            
+            /* Fruit Colors */
+            --love: #e91e63;
+            --joy: #ffc107;
+            --peace: #4fc3f7;
+            --patience: #ff7043;
+            --kindness: #66bb6a;
+            --goodness: #26a69a;
+            --faithfulness: #5c6bc0;
+            --gentleness: #ce93d8;
+            --selfcontrol: #78909c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+        }
+
+        /* Disguise Mode */
+        body.disguised .app-container { display: none; }
+        body.disguised .disguise-screen { display: flex; }
+
+        .disguise-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #f8f9fa;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #495057;
+        }
+
+        .disguise-screen h1 { font-size: 1.5rem; margin-bottom: 10px; color: #343a40; }
+        .disguise-screen p { color: #6c757d; margin-bottom: 20px; }
+        .disguise-screen input {
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 250px;
+            text-align: center;
+        }
+
+        /* Navigation */
+        .nav {
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-brand h1 {
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, var(--success), var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 10px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-tab:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .nav-tab.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .nav-tab.victory.active { background: var(--success); }
+        .nav-tab.fruit.active { background: linear-gradient(135deg, var(--love), var(--joy)); }
+        .nav-tab.gratitude.active { background: var(--gold); color: #333; }
+        .nav-tab.insights.active { background: var(--info); }
+
+        .nav-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .icon-btn.danger:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Alert Banners */
+        .alert {
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .alert.grace {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.15), rgba(156, 39, 176, 0.05));
+            border: 1px solid var(--accent);
+        }
+
+        .alert.success {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.05));
+            border: 1px solid var(--success);
+        }
+
+        .alert.gold {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+            border: 1px solid var(--gold);
+        }
+
+        .alert .icon { font-size: 1.8rem; flex-shrink: 0; }
+        .alert .content { flex: 1; }
+        .alert h4 { margin-bottom: 4px; font-size: 1rem; }
+        .alert p { font-size: 0.9rem; color: var(--text-secondary); }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover { transform: translateY(-3px); }
+        .stat-card .icon { font-size: 1.8rem; margin-bottom: 10px; }
+        .stat-card .value { font-size: 2rem; font-weight: bold; margin-bottom: 5px; }
+        .stat-card .label { font-size: 0.8rem; color: var(--text-secondary); }
+        .stat-card.victory .value { color: var(--success); }
+        .stat-card.fruit .value { color: var(--accent); }
+        .stat-card.gratitude .value { color: var(--gold); }
+        .stat-card.streak .value { color: #ff6b35; }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-success { background: var(--success); color: #fff; }
+        .btn-warning { background: var(--warning); color: #fff; }
+        .btn-gold { background: var(--gold); color: #333; }
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-small { padding: 8px 16px; font-size: 0.85rem; }
+
+        /* Quick Log Section */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .quick-action-card {
+            background: linear-gradient(135deg, var(--bg-card), rgba(255,255,255,0.02));
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .quick-action-card.victory { border-color: var(--success); }
+        .quick-action-card.victory:hover { background: rgba(76, 175, 80, 0.1); }
+        .quick-action-card.fruit { border-color: var(--accent); }
+        .quick-action-card.fruit:hover { background: rgba(156, 39, 176, 0.1); }
+        .quick-action-card.gratitude { border-color: var(--gold); }
+        .quick-action-card.gratitude:hover { background: rgba(255, 215, 0, 0.1); }
+
+        .quick-action-card .icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .quick-action-card h3 { margin-bottom: 5px; }
+        .quick-action-card p { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* Victory Streak Display */
+        .streak-hero {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.05));
+            border: 2px solid var(--success);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .streak-number {
+            font-size: 4.5rem;
+            font-weight: bold;
+            color: var(--success);
+        }
+
+        .streak-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        .streak-milestones {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .milestone {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+        }
+
+        .milestone.achieved {
+            background: var(--success);
+            color: #fff;
+            border-color: var(--success);
+        }
+
+        .milestone.next {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Fruit Radar Chart Container */
+        .radar-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .radar-chart {
+            position: relative;
+            width: 320px;
+            height: 320px;
+        }
+
+        .radar-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 1px solid var(--border);
+        }
+
+        .radar-fruit {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .radar-fruit:hover { transform: scale(1.1); }
+        .radar-fruit .score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .radar-fruit .name { color: var(--text-secondary); }
+
+        /* Fruit Slider Grid */
+        .fruit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .fruit-item {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid var(--border);
+        }
+
+        .fruit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .fruit-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .fruit-name .emoji { font-size: 1.3rem; }
+
+        .fruit-score {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .fruit-slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: var(--border);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .fruit-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .fruit-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+        .fruit-slider.love::-webkit-slider-thumb { background: var(--love); }
+        .fruit-slider.joy::-webkit-slider-thumb { background: var(--joy); }
+        .fruit-slider.peace::-webkit-slider-thumb { background: var(--peace); }
+        .fruit-slider.patience::-webkit-slider-thumb { background: var(--patience); }
+        .fruit-slider.kindness::-webkit-slider-thumb { background: var(--kindness); }
+        .fruit-slider.goodness::-webkit-slider-thumb { background: var(--goodness); }
+        .fruit-slider.faithfulness::-webkit-slider-thumb { background: var(--faithfulness); }
+        .fruit-slider.gentleness::-webkit-slider-thumb { background: var(--gentleness); }
+        .fruit-slider.selfcontrol::-webkit-slider-thumb { background: var(--selfcontrol); }
+
+        .fruit-question {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Gratitude Entry */
+        .gratitude-entry {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.02));
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .gratitude-entry h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gratitude-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .gratitude-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .gratitude-input-group .number {
+            width: 30px;
+            height: 30px;
+            background: var(--gold);
+            color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .gratitude-input-group input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .gratitude-input-group input::placeholder { color: var(--text-secondary); }
+
+        .mood-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .mood-btn {
+            font-size: 1.8rem;
+            background: none;
+            border: 3px solid transparent;
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+        }
+
+        .mood-btn:hover { opacity: 0.8; transform: scale(1.1); }
+        .mood-btn.selected { opacity: 1; border-color: var(--gold); }
+
+        /* Entry Lists */
+        .entry-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .entry-item {
+            display: flex;
+            gap: 15px;
+            padding: 18px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border-left: 4px solid var(--border);
+        }
+
+        .entry-item.victory { border-left-color: var(--success); }
+        .entry-item.struggle { border-left-color: var(--danger); }
+        .entry-item.gratitude { border-left-color: var(--gold); }
+        .entry-item.fruit { border-left-color: var(--accent); }
+
+        .entry-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .entry-content { flex: 1; }
+        .entry-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 6px; }
+        .entry-title { font-weight: 600; }
+        .entry-time { font-size: 0.8rem; color: var(--text-secondary); }
+        .entry-details { font-size: 0.9rem; color: var(--text-secondary); }
+
+        .entry-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .entry-tag {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            background: rgba(255, 152, 0, 0.2);
+            color: var(--warning);
+        }
+
+        /* Calendar */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .calendar-day-label {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+        }
+
+        .calendar-day:hover { transform: scale(1.05); z-index: 10; }
+        .calendar-day .date { font-weight: bold; }
+        .calendar-day .icons { font-size: 0.6rem; margin-top: 2px; }
+
+        .calendar-day.today { outline: 2px solid var(--accent); outline-offset: 2px; }
+        .calendar-day.has-victory { background: rgba(76, 175, 80, 0.3); border-color: var(--success); }
+        .calendar-day.has-struggle { background: rgba(255, 107, 107, 0.3); border-color: var(--danger); }
+        .calendar-day.has-gratitude { background: rgba(255, 215, 0, 0.3); border-color: var(--gold); }
+        .calendar-day.has-fruit { background: rgba(156, 39, 176, 0.3); border-color: var(--accent); }
+        .calendar-day.mixed { background: linear-gradient(135deg, rgba(76, 175, 80, 0.3), rgba(255, 107, 107, 0.3)); }
+
+        /* Insights Charts */
+        .insight-card {
+            background: linear-gradient(135deg, rgba(100, 181, 246, 0.1), rgba(100, 181, 246, 0.03));
+            border: 1px solid var(--info);
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 18px;
+        }
+
+        .insight-card h3 {
+            color: var(--info);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .insight-card p { color: var(--text-secondary); line-height: 1.6; }
+        .insight-card .highlight { color: var(--gold); font-weight: bold; }
+
+        .correlation-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .correlation-bar:last-child { border-bottom: none; }
+        .correlation-label { flex: 1; font-size: 0.9rem; }
+        .correlation-track { width: 150px; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+        .correlation-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+        .correlation-fill.positive { background: var(--success); }
+        .correlation-fill.negative { background: var(--danger); }
+        .correlation-value { width: 50px; text-align: right; font-weight: bold; font-size: 0.85rem; }
+
+        /* Time Heatmap */
+        .time-heatmap {
+            display: grid;
+            grid-template-columns: repeat(24, 1fr);
+            gap: 3px;
+        }
+
+        .time-cell {
+            aspect-ratio: 1;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .time-cell.low { background: rgba(76, 175, 80, 0.3); }
+        .time-cell.medium { background: rgba(255, 152, 0, 0.5); }
+        .time-cell.high { background: rgba(255, 107, 107, 0.7); }
+
+        /* Battle Plan */
+        .battle-step {
+            display: flex;
+            gap: 18px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .battle-step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .battle-step-content h4 { margin-bottom: 6px; }
+        .battle-step-content p { color: var(--text-secondary); line-height: 1.5; }
+
+        .scripture-verse {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid var(--gold);
+            padding: 18px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .scripture-verse .reference {
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .scripture-verse .text { font-style: italic; line-height: 1.6; }
+
+        /* Forms */
+        .form-group { margin-bottom: 22px; }
+        .form-group label { display: block; margin-bottom: 10px; color: var(--text-secondary); font-size: 0.9rem; }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        textarea::placeholder { color: var(--text-secondary); }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 10px;
+        }
+
+        .category-btn {
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .category-btn:hover { border-color: var(--accent); }
+        .category-btn.selected { border-color: var(--accent); background: rgba(156, 39, 176, 0.2); }
+        .category-btn .emoji { font-size: 1.6rem; display: block; margin-bottom: 6px; }
+        .category-btn .name { font-size: 0.85rem; }
+
+        /* Trigger Tags */
+        .trigger-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .trigger-tag {
+            padding: 10px 16px;
+            border-radius: 20px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .trigger-tag:hover { border-color: var(--warning); }
+        .trigger-tag.selected { background: var(--warning); color: #fff; border-color: var(--warning); }
+
+        /* Severity */
+        .severity-slider {
+            display: flex;
+            gap: 10px;
+        }
+
+        .severity-option {
+            flex: 1;
+            padding: 15px 10px;
+            border-radius: 10px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .severity-option:hover { border-color: var(--text-secondary); }
+        .severity-option.selected { border-color: var(--danger); background: rgba(255, 107, 107, 0.15); }
+        .severity-option.selected.low { border-color: var(--success); background: rgba(76, 175, 80, 0.15); }
+        .severity-option.selected.medium { border-color: var(--warning); background: rgba(255, 152, 0, 0.15); }
+        .severity-option .number { font-size: 1.5rem; font-weight: bold; }
+        .severity-option .label { font-size: 0.7rem; color: var(--text-secondary); }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal.show { display: flex; }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            padding: 35px;
+            border-radius: 20px;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        .modal-title { text-align: center; margin-bottom: 25px; }
+        .modal-title h2 { margin-bottom: 8px; }
+        .modal-title p { color: var(--text-secondary); }
+
+        .modal-footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .modal-footer p { color: var(--text-secondary); font-size: 0.85rem; font-style: italic; }
+
+        /* Celebration */
+        .celebration-content { text-align: center; }
+        .celebration-emoji { font-size: 5rem; margin-bottom: 20px; animation: bounce 0.6s ease infinite alternate; }
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
+
+        /* FAB */
+        .fab {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--success), var(--accent));
+            color: #fff;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover { transform: scale(1.1) rotate(90deg); }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state .icon { font-size: 3.5rem; margin-bottom: 15px; opacity: 0.5; }
+        .empty-state h3 { margin-bottom: 10px; }
+        .empty-state p { max-width: 350px; margin: 0 auto 20px; }
+
+        /* Settings */
+        .settings-group {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 22px;
+            border: 1px solid var(--border);
+            margin-bottom: 18px;
+        }
+
+        .settings-group h3 { margin-bottom: 18px; }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .setting-item:last-child { border-bottom: none; }
+        .setting-label h4 { margin-bottom: 4px; }
+        .setting-label p { font-size: 0.8rem; color: var(--text-secondary); }
+
+        .toggle {
+            width: 50px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle.active { background: var(--success); }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle.active::after { left: 26px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-content { flex-direction: column; }
+            .nav-tabs { width: 100%; justify-content: center; }
+            .nav-tab span:not(:first-child) { display: none; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .quick-actions { grid-template-columns: 1fr; }
+            .fruit-grid { grid-template-columns: 1fr; }
+            .streak-number { font-size: 3.5rem; }
+            .radar-chart { width: 280px; height: 280px; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 12px; }
+            .card { padding: 18px; }
+            .severity-slider { flex-wrap: wrap; }
+            .severity-option { flex: 1 1 30%; }
+            .fab { width: 55px; height: 55px; font-size: 1.4rem; bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Disguise Screen -->
+    <div class="disguise-screen" id="disguiseScreen">
+        <h1>📝 Personal Journal</h1>
+        <p>Private workspace</p>
+        <input type="password" id="disguisePassword" placeholder="Enter password" onkeyup="checkDisguise(event)">
+    </div>
+
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <h1>🌱 Spiritual Growth</h1>
+                </div>
+                <div class="nav-tabs">
+                    <button class="nav-tab active" onclick="switchTab('dashboard')" data-tab="dashboard">
+                        <span>📊</span><span>Dashboard</span>
+                    </button>
+                    <button class="nav-tab victory" onclick="switchTab('victory')" data-tab="victory">
+                        <span>🛡️</span><span>Victory</span>
+                    </button>
+                    <button class="nav-tab fruit" onclick="switchTab('fruit')" data-tab="fruit">
+                        <span>🍇</span><span>Fruit</span>
+                    </button>
+                    <button class="nav-tab gratitude" onclick="switchTab('gratitude')" data-tab="gratitude">
+                        <span>🙏</span><span>Gratitude</span>
+                    </button>
+                    <button class="nav-tab insights" onclick="switchTab('insights')" data-tab="insights">
+                        <span>💡</span><span>Insights</span>
+                    </button>
+                    <button class="nav-tab" onclick="switchTab('battleplan')" data-tab="battleplan">
+                        <span>⚔️</span><span>Battle</span>
+                    </button>
+                </div>
+                <div class="nav-actions">
+                    <button class="icon-btn" onclick="openSettings()" title="Settings">⚙️</button>
+                    <button class="icon-btn danger" onclick="quickHide()" title="Quick Hide">🔒</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- ==================== DASHBOARD ==================== -->
+            <div id="dashboard" class="tab-content active">
+                <!-- Grace Banner -->
+                <div class="alert grace">
+                    <div class="icon">💜</div>
+                    <div class="content">
+                        <h4>God's Mercies Are New Every Morning</h4>
+                        <p id="dailyVerse">"His mercies never end; they are new every morning; great is your faithfulness." — Lamentations 3:22-23</p>
+                    </div>
+                </div>
+
+                <!-- Combined Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card victory">
+                        <div class="icon">🛡️</div>
+                        <div class="value" id="statVictoryStreak">0</div>
+                        <div class="label">Victory Streak</div>
+                    </div>
+                    <div class="stat-card fruit">
+                        <div class="icon">🍇</div>
+                        <div class="value" id="statFruitAvg">0</div>
+                        <div class="label">Fruit Average</div>
+                    </div>
+                    <div class="stat-card gratitude">
+                        <div class="icon">🙏</div>
+                        <div class="value" id="statGratitudeStreak">0</div>
+                        <div class="label">Gratitude Streak</div>
+                    </div>
+                    <div class="stat-card streak">
+                        <div class="icon">📊</div>
+                        <div class="value" id="statVictoryRate">0%</div>
+                        <div class="label">Victory Rate</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="quick-action-card victory" onclick="openVictoryLog('victory')">
+                        <div class="icon">✓</div>
+                        <h3>Log Victory</h3>
+                        <p>I resisted temptation!</p>
+                    </div>
+                    <div class="quick-action-card fruit" onclick="openFruitAssessment()">
+                        <div class="icon">🍇</div>
+                        <h3>Fruit Check-In</h3>
+                        <p>Assess spiritual fruit</p>
+                    </div>
+                    <div class="quick-action-card gratitude" onclick="openGratitudeEntry()">
+                        <div class="icon">🙏</div>
+                        <h3>Gratitude Entry</h3>
+                        <p>What are you thankful for?</p>
+                    </div>
+                </div>
+
+                <!-- Calendar Overview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📅 30-Day Overview</h3>
+                        <div style="display: flex; gap: 12px; font-size: 0.8rem; color: var(--text-secondary);">
+                            <span>🟢 Victory</span>
+                            <span>🔴 Struggle</span>
+                            <span>🟡 Gratitude</span>
+                            <span>🟣 Fruit</span>
+                        </div>
+                    </div>
+                    <div class="calendar-header">
+                        <div class="calendar-day-label">Sun</div>
+                        <div class="calendar-day-label">Mon</div>
+                        <div class="calendar-day-label">Tue</div>
+                        <div class="calendar-day-label">Wed</div>
+                        <div class="calendar-day-label">Thu</div>
+                        <div class="calendar-day-label">Fri</div>
+                        <div class="calendar-day-label">Sat</div>
+                    </div>
+                    <div class="calendar-grid" id="dashboardCalendar"></div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📜 Recent Activity</h3>
+                    </div>
+                    <div class="entry-list" id="recentActivity"></div>
+                </div>
+            </div>
+
+            <!-- ==================== VICTORY TRACKER ==================== -->
+            <div id="victory" class="tab-content">
+                <!-- Victory Streak Hero -->
+                <div class="streak-hero">
+                    <div class="streak-number" id="victoryStreakHero">0</div>
+                    <div class="streak-label" id="victoryStreakLabel">Days of Victory</div>
+                    <div class="streak-milestones">
+                        <span class="milestone" data-days="7">🌱 7 Days</span>
+                        <span class="milestone" data-days="30">💪 30 Days</span>
+                        <span class="milestone" data-days="90">🏆 90 Days</span>
+                        <span class="milestone" data-days="365">👑 1 Year</span>
+                    </div>
+                </div>
+
+                <!-- Quick Log Buttons -->
+                <div class="quick-actions" style="margin-bottom: 25px;">
+                    <div class="quick-action-card victory" onclick="openVictoryLog('victory')">
+                        <div class="icon">✓</div>
+                        <h3>Log Victory!</h3>
+                        <p>I resisted temptation</p>
+                    </div>
+                    <div class="quick-action-card" onclick="openVictoryLog('struggle')" style="border-color: #78909c;">
+                        <div class="icon">📝</div>
+                        <h3>Log Struggle</h3>
+                        <p>Track for growth</p>
+                    </div>
+                </div>
+
+                <!-- Victory Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="icon">🏆</div>
+                        <div class="value" id="longestStreak">0</div>
+                        <div class="label">Longest Streak</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">✓</div>
+                        <div class="value" id="totalVictories">0</div>
+                        <div class="label">Total Victories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">📊</div>
+                        <div class="value" id="victoryRateCard">0%</div>
+                        <div class="label">30-Day Rate</div>
+                    </div>
+                </div>
+
+                <!-- Pattern Entries -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📋 Pattern Log</h3>
+                    </div>
+                    <div class="entry-list" id="victoryEntryList"></div>
+                </div>
+            </div>
+
+            <!-- ==================== FRUIT OF SPIRIT ==================== -->
+            <div id="fruit" class="tab-content">
+                <!-- Fruit Overview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">🍇 Fruit of the Spirit Assessment</h3>
+                        <button class="btn btn-primary btn-small" onclick="openFruitAssessment()">+ New Assessment</button>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        Rate yourself honestly 1-10 on each fruit. This isn't about perfection — it's about growth!
+                    </p>
+
+                    <!-- Fruit Grid -->
+                    <div class="fruit-grid" id="fruitGrid">
+                        <!-- Generated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Fruit Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card fruit">
+                        <div class="icon">📊</div>
+                        <div class="value" id="fruitAvgScore">0</div>
+                        <div class="label">Average Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">⬆️</div>
+                        <div class="value" id="strongestFruit">--</div>
+                        <div class="label">Strongest</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">🎯</div>
+                        <div class="value" id="focusFruit">--</div>
+                        <div class="label">Focus Area</div>
+                    </div>
+                </div>
+
+                <!-- Fruit History -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📜 Assessment History</h3>
+                    </div>
+                    <div class="entry-list" id="fruitHistory"></div>
+                </div>
+            </div>
+
+            <!-- ==================== GRATITUDE JOURNAL ==================== -->
+            <div id="gratitude" class="tab-content">
+                <!-- Gratitude Entry -->
+                <div class="gratitude-entry">
+                    <h3>🙏 Today's Gratitude</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">What are you thankful for today?</p>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: var(--text-secondary); font-size: 0.9rem;">How are you feeling right now?</label>
+                        <div class="mood-selector" id="gratitudeMoodBefore">
+                            <button class="mood-btn" data-mood="1" onclick="selectMood('before', 1)">😔</button>
+                            <button class="mood-btn" data-mood="2" onclick="selectMood('before', 2)">😐</button>
+                            <button class="mood-btn" data-mood="3" onclick="selectMood('before', 3)">🙂</button>
+                            <button class="mood-btn" data-mood="4" onclick="selectMood('before', 4)">😊</button>
+                            <button class="mood-btn" data-mood="5" onclick="selectMood('before', 5)">🥰</button>
+                        </div>
+                    </div>
+
+                    <div class="gratitude-inputs">
+                        <div class="gratitude-input-group">
+                            <div class="number">1</div>
+                            <input type="text" id="gratitude1" placeholder="I'm grateful for...">
+                        </div>
+                        <div class="gratitude-input-group">
+                            <div class="number">2</div>
+                            <input type="text" id="gratitude2" placeholder="I'm grateful for...">
+                        </div>
+                        <div class="gratitude-input-group">
+                            <div class="number">3</div>
+                            <input type="text" id="gratitude3" placeholder="I'm grateful for...">
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-gold" style="width: 100%;" onclick="saveGratitudeEntry()">
+                            💾 Save Gratitude Entry
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Gratitude Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card gratitude">
+                        <div class="icon">🔥</div>
+                        <div class="value" id="gratitudeStreakNum">0</div>
+                        <div class="label">Day Streak</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">📝</div>
+                        <div class="value" id="totalGratitudes">0</div>
+                        <div class="label">Total Entries</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon">😊</div>
+                        <div class="value" id="avgMoodImprovement">--</div>
+                        <div class="label">Mood Impact</div>
+                    </div>
+                </div>
+
+                <!-- Gratitude History -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📜 Gratitude Journal</h3>
+                    </div>
+                    <div class="entry-list" id="gratitudeHistory"></div>
+                </div>
+            </div>
+
+            <!-- ==================== INSIGHTS ==================== -->
+            <div id="insights" class="tab-content">
+                <!-- Cross-Correlation Insights -->
+                <div class="insight-card">
+                    <h3>🔗 Gratitude & Victory Connection</h3>
+                    <p id="gratitudeVictoryInsight">Track more data to see how gratitude impacts your victory rate!</p>
+                </div>
+
+                <div class="insight-card">
+                    <h3>🍇 Fruit & Victory Connection</h3>
+                    <p id="fruitVictoryInsight">Complete fruit assessments to see correlations with victory patterns!</p>
+                </div>
+
+                <!-- Trigger Analysis -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">⚠️ Top Triggers</h3>
+                    </div>
+                    <div id="triggerAnalysis"></div>
+                </div>
+
+                <!-- Time Patterns -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">🕐 Time-Based Patterns</h3>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 0.9rem;">When struggles occur most (darker = more frequent)</p>
+                    <div class="time-heatmap" id="timeHeatmap"></div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-secondary); margin-top: 6px;">
+                        <span>12am</span><span>6am</span><span>12pm</span><span>6pm</span><span>11pm</span>
+                    </div>
+                </div>
+
+                <!-- Weekly Pattern -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📊 Weekly Victory Rate</h3>
+                    </div>
+                    <div id="weeklyChart" style="display: flex; gap: 10px; justify-content: space-between;"></div>
+                </div>
+
+                <!-- Progress Summary -->
+                <div class="insight-card">
+                    <h3>📈 Your Growth Journey</h3>
+                    <p id="growthSummary">Keep tracking to see your spiritual growth over time!</p>
+                </div>
+            </div>
+
+            <!-- ==================== BATTLE PLAN ==================== -->
+            <div id="battleplan" class="tab-content">
+                <!-- Emergency Alert -->
+                <div class="alert" style="background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(255, 152, 0, 0.05)); border: 1px solid var(--warning);">
+                    <div class="icon">🚨</div>
+                    <div class="content">
+                        <h4>Feeling Tempted Right Now?</h4>
+                        <p>Don't wait — use your emergency plan immediately!</p>
+                    </div>
+                    <button class="btn btn-warning" onclick="openEmergencyModal()">Emergency Help</button>
+                </div>
+
+                <!-- Battle Steps -->
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 20px;">⚔️ Your Battle Strategy</h3>
+
+                    <div class="battle-step">
+                        <div class="battle-step-number">1</div>
+                        <div class="battle-step-content">
+                            <h4>STOP Immediately</h4>
+                            <p>Pause everything. Put down your device. Physically step away from the situation.</p>
+                        </div>
+                    </div>
+
+                    <div class="battle-step">
+                        <div class="battle-step-number">2</div>
+                        <div class="battle-step-content">
+                            <h4>PRAY Out Loud</h4>
+                            <p>"Lord Jesus, I need Your strength right now. I cannot do this alone. Fill me with Your Spirit."</p>
+                        </div>
+                    </div>
+
+                    <div class="battle-step">
+                        <div class="battle-step-number">3</div>
+                        <div class="battle-step-content">
+                            <h4>SPEAK Scripture</h4>
+                            <p>Say aloud: "No temptation has overtaken me except what is common to mankind. God is faithful!" (1 Cor 10:13)</p>
+                        </div>
+                    </div>
+
+                    <div class="battle-step">
+                        <div class="battle-step-number">4</div>
+                        <div class="battle-step-content">
+                            <h4>CHANGE Environment</h4>
+                            <p>Go outside. Call someone. Do pushups. Get to a different room. Physical movement breaks the mental pattern.</p>
+                        </div>
+                    </div>
+
+                    <div class="battle-step">
+                        <div class="battle-step-number">5</div>
+                        <div class="battle-step-content">
+                            <h4>LOG It</h4>
+                            <p>Whether victory or struggle, log it here. This data helps you grow stronger. No shame — only growth!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Verses -->
+                <div class="card">
+                    <h3 class="card-title" style="margin-bottom: 20px;">📜 Verses for Battle</h3>
+
+                    <div class="scripture-verse">
+                        <div class="reference">1 Corinthians 10:13</div>
+                        <div class="text">"No temptation has overtaken you except what is common to mankind. And God is faithful; he will not let you be tempted beyond what you can bear."</div>
+                    </div>
+
+                    <div class="scripture-verse">
+                        <div class="reference">James 4:7</div>
+                        <div class="text">"Submit yourselves, then, to God. Resist the devil, and he will flee from you."</div>
+                    </div>
+
+                    <div class="scripture-verse">
+                        <div class="reference">Psalm 119:11</div>
+                        <div class="text">"I have hidden your word in my heart that I might not sin against you."</div>
+                    </div>
+
+                    <div class="scripture-verse">
+                        <div class="reference">Romans 8:1</div>
+                        <div class="text">"There is now no condemnation for those who are in Christ Jesus."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAB -->
+        <button class="fab" onclick="openQuickMenu()" title="Quick Add">+</button>
+    </div>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- Victory Log Modal -->
+    <div class="modal" id="victoryModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('victoryModal')">×</button>
+            <div class="modal-title">
+                <h2 id="victoryModalTitle">📝 Log Entry</h2>
+                <p id="victoryModalSubtitle">Recording your journey</p>
+            </div>
+
+            <div class="form-group">
+                <label>What happened?</label>
+                <div class="category-grid" id="categoryGrid">
+                    <button class="category-btn" data-cat="thoughts" onclick="selectCategory('thoughts')">
+                        <div class="emoji">💭</div><div class="name">Thoughts</div>
+                    </button>
+                    <button class="category-btn" data-cat="words" onclick="selectCategory('words')">
+                        <div class="emoji">💬</div><div class="name">Words</div>
+                    </button>
+                    <button class="category-btn" data-cat="actions" onclick="selectCategory('actions')">
+                        <div class="emoji">🎯</div><div class="name">Actions</div>
+                    </button>
+                    <button class="category-btn" data-cat="habits" onclick="selectCategory('habits')">
+                        <div class="emoji">🔄</div><div class="name">Habits</div>
+                    </button>
+                    <button class="category-btn" data-cat="attitudes" onclick="selectCategory('attitudes')">
+                        <div class="emoji">❤️</div><div class="name">Attitudes</div>
+                    </button>
+                    <button class="category-btn" data-cat="other" onclick="selectCategory('other')">
+                        <div class="emoji">📌</div><div class="name">Other</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group" id="triggerSection">
+                <label>Triggers (select all that apply)</label>
+                <div class="trigger-grid">
+                    <button class="trigger-tag" data-trig="stress" onclick="toggleTrigger('stress')">😰 Stress</button>
+                    <button class="trigger-tag" data-trig="loneliness" onclick="toggleTrigger('loneliness')">😔 Loneliness</button>
+                    <button class="trigger-tag" data-trig="boredom" onclick="toggleTrigger('boredom')">😐 Boredom</button>
+                    <button class="trigger-tag" data-trig="fatigue" onclick="toggleTrigger('fatigue')">😴 Fatigue</button>
+                    <button class="trigger-tag" data-trig="anger" onclick="toggleTrigger('anger')">😠 Anger</button>
+                    <button class="trigger-tag" data-trig="anxiety" onclick="toggleTrigger('anxiety')">😟 Anxiety</button>
+                </div>
+            </div>
+
+            <div class="form-group" id="severitySection" style="display: none;">
+                <label>Severity (1-5)</label>
+                <div class="severity-slider">
+                    <button class="severity-option" data-sev="1" onclick="selectSeverity(1)">
+                        <div class="number">1</div><div class="label">Mild</div>
+                    </button>
+                    <button class="severity-option" data-sev="2" onclick="selectSeverity(2)">
+                        <div class="number">2</div><div class="label">Light</div>
+                    </button>
+                    <button class="severity-option" data-sev="3" onclick="selectSeverity(3)">
+                        <div class="number">3</div><div class="label">Medium</div>
+                    </button>
+                    <button class="severity-option" data-sev="4" onclick="selectSeverity(4)">
+                        <div class="number">4</div><div class="label">Strong</div>
+                    </button>
+                    <button class="severity-option" data-sev="5" onclick="selectSeverity(5)">
+                        <div class="number">5</div><div class="label">Intense</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Notes (optional)</label>
+                <textarea id="victoryNotes" placeholder="What helped? What would you do differently?"></textarea>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%;" onclick="saveVictoryEntry()">💾 Save Entry</button>
+
+            <div class="modal-footer">
+                <p>"If we confess our sins, he is faithful and just to forgive us." — 1 John 1:9</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fruit Assessment Modal -->
+    <div class="modal" id="fruitModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('fruitModal')">×</button>
+            <div class="modal-title">
+                <h2>🍇 Fruit Assessment</h2>
+                <p>How are you doing in each area?</p>
+            </div>
+
+            <div id="fruitAssessmentForm">
+                <!-- Generated dynamically -->
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="saveFruitAssessment()">💾 Save Assessment</button>
+        </div>
+    </div>
+
+    <!-- Quick Menu Modal -->
+    <div class="modal" id="quickMenuModal">
+        <div class="modal-content" style="max-width: 400px;">
+            <button class="modal-close" onclick="closeModal('quickMenuModal')">×</button>
+            <div class="modal-title">
+                <h2>Quick Add</h2>
+                <p>What would you like to log?</p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <button class="btn btn-success" style="width: 100%; padding: 18px; font-size: 1rem;" onclick="closeModal('quickMenuModal'); openVictoryLog('victory')">
+                    ✓ Log Victory
+                </button>
+                <button class="btn btn-secondary" style="width: 100%; padding: 18px; font-size: 1rem;" onclick="closeModal('quickMenuModal'); openVictoryLog('struggle')">
+                    📝 Log Struggle
+                </button>
+                <button class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 1rem;" onclick="closeModal('quickMenuModal'); openFruitAssessment()">
+                    🍇 Fruit Assessment
+                </button>
+                <button class="btn btn-gold" style="width: 100%; padding: 18px; font-size: 1rem;" onclick="closeModal('quickMenuModal'); switchTab('gratitude')">
+                    🙏 Gratitude Entry
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div class="modal" id="emergencyModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('emergencyModal')">×</button>
+            <div style="text-align: center; margin-bottom: 25px;">
+                <div style="font-size: 4rem; margin-bottom: 15px;">🚨</div>
+                <h2 style="color: var(--warning);">Emergency Battle Plan</h2>
+                <p style="color: var(--text-secondary);">Do these RIGHT NOW:</p>
+            </div>
+
+            <div class="battle-step" style="border: 2px solid var(--warning); background: rgba(255, 152, 0, 0.1);">
+                <div class="battle-step-number" style="background: var(--warning);">1</div>
+                <div class="battle-step-content">
+                    <h4>STOP Everything</h4>
+                    <p>Put down your device. Close the tab. Step away physically.</p>
+                </div>
+            </div>
+
+            <div class="battle-step" style="border: 2px solid var(--warning); background: rgba(255, 152, 0, 0.1);">
+                <div class="battle-step-number" style="background: var(--warning);">2</div>
+                <div class="battle-step-content">
+                    <h4>PRAY Out Loud</h4>
+                    <p>"Jesus, I need You right now! Give me strength. I choose You!"</p>
+                </div>
+            </div>
+
+            <div class="battle-step" style="border: 2px solid var(--warning); background: rgba(255, 152, 0, 0.1);">
+                <div class="battle-step-number" style="background: var(--warning);">3</div>
+                <div class="battle-step-content">
+                    <h4>MOVE Your Body</h4>
+                    <p>Go outside. Do pushups. Walk to another room. Call a friend.</p>
+                </div>
+            </div>
+
+            <div class="scripture-verse" style="margin-top: 20px;">
+                <div class="reference">1 Corinthians 10:13</div>
+                <div class="text">"God is faithful; he will not let you be tempted beyond what you can bear."</div>
+            </div>
+
+            <button class="btn btn-success" style="width: 100%; margin-top: 20px;" onclick="logEmergencyVictory()">
+                ✓ I Made It! Log Victory
+            </button>
+        </div>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="modal" id="celebrationModal">
+        <div class="modal-content celebration-content">
+            <div class="celebration-emoji" id="celebrationEmoji">🎉</div>
+            <h2 id="celebrationTitle" style="margin-bottom: 12px;">Great Job!</h2>
+            <p id="celebrationText" style="color: var(--text-secondary); margin-bottom: 25px;">You're growing stronger!</p>
+            <button class="btn btn-success" onclick="closeModal('celebrationModal')">Continue</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('settingsModal')">×</button>
+            <div class="modal-title">
+                <h2>⚙️ Settings</h2>
+            </div>
+
+            <div class="settings-group">
+                <h3>🔒 Privacy</h3>
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <h4>Quick Hide Password</h4>
+                        <p>Set password for disguise mode</p>
+                    </div>
+                    <input type="password" id="hidePassword" placeholder="Password" style="width: 130px;" onchange="savePassword()">
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h3>📊 Data</h3>
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <h4>Export All Data</h4>
+                    </div>
+                    <button class="btn btn-secondary btn-small" onclick="exportData()">Export</button>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-label">
+                        <h4>Reset All Data</h4>
+                        <p style="color: var(--danger);">Cannot be undone!</p>
+                    </div>
+                    <button class="btn btn-danger btn-small" onclick="resetAllData()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== FRUIT DATA ==========
+        const FRUITS = [
+            { id: 'love', name: 'Love', emoji: '💗', color: '#e91e63', question: 'Am I loving God and others selflessly?' },
+            { id: 'joy', name: 'Joy', emoji: '😊', color: '#ffc107', question: 'Do I have deep joy regardless of circumstances?' },
+            { id: 'peace', name: 'Peace', emoji: '☮️', color: '#4fc3f7', question: 'Am I experiencing inner peace or anxiety?' },
+            { id: 'patience', name: 'Patience', emoji: '⏳', color: '#ff7043', question: 'How patient am I with people and situations?' },
+            { id: 'kindness', name: 'Kindness', emoji: '🤝', color: '#66bb6a', question: 'Am I actively kind and compassionate?' },
+            { id: 'goodness', name: 'Goodness', emoji: '✨', color: '#26a69a', question: 'Am I doing right even when unseen?' },
+            { id: 'faithfulness', name: 'Faithfulness', emoji: '🙏', color: '#5c6bc0', question: 'Am I reliable and committed?' },
+            { id: 'gentleness', name: 'Gentleness', emoji: '🕊️', color: '#ce93d8', question: 'Am I gentle or harsh in words/actions?' },
+            { id: 'selfcontrol', name: 'Self-Control', emoji: '🎯', color: '#78909c', question: 'Do I control my impulses?' }
+        ];
+
+        const GRACE_VERSES = [
+            '"His mercies are new every morning; great is your faithfulness." — Lamentations 3:22-23',
+            '"There is now no condemnation for those who are in Christ Jesus." — Romans 8:1',
+            '"My grace is sufficient for you, for my power is made perfect in weakness." — 2 Cor 12:9',
+            '"If we confess our sins, he is faithful to forgive and cleanse us." — 1 John 1:9'
+        ];
+
+        // ========== STATE ==========
+        let state = {
+            victoryEntries: [],
+            fruitAssessments: [],
+            gratitudeEntries: [],
+            settings: { hidePassword: '' },
+            currentFruits: {}
+        };
+
+        let currentLog = { type: 'victory', category: null, triggers: [], severity: null };
+        let currentMoodBefore = null;
+
+        // ========== INIT ==========
+        function init() {
+            loadState();
+            initFruits();
+            setDailyVerse();
+            renderAll();
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('spiritualGrowthApp');
+            if (saved) state = JSON.parse(saved);
+            if (!state.currentFruits) state.currentFruits = {};
+            FRUITS.forEach(f => { if (!state.currentFruits[f.id]) state.currentFruits[f.id] = 5; });
+        }
+
+        function saveState() {
+            localStorage.setItem('spiritualGrowthApp', JSON.stringify(state));
+        }
+
+        function setDailyVerse() {
+            const day = new Date().getDate();
+            document.getElementById('dailyVerse').textContent = GRACE_VERSES[day % GRACE_VERSES.length];
+        }
+
+        function initFruits() {
+            const grid = document.getElementById('fruitGrid');
+            grid.innerHTML = FRUITS.map(f => `
+                <div class="fruit-item">
+                    <div class="fruit-header">
+                        <div class="fruit-name">
+                            <span class="emoji">${f.emoji}</span>
+                            <span>${f.name}</span>
+                        </div>
+                        <div class="fruit-score" id="score-${f.id}" style="color: ${f.color}">${state.currentFruits[f.id] || 5}</div>
+                    </div>
+                    <input type="range" class="fruit-slider ${f.id}" min="1" max="10" value="${state.currentFruits[f.id] || 5}" 
+                        oninput="updateFruitScore('${f.id}', this.value)">
+                    <div class="fruit-question">${f.question}</div>
+                </div>
+            `).join('');
+        }
+
+        function updateFruitScore(id, value) {
+            state.currentFruits[id] = parseInt(value);
+            document.getElementById(`score-${id}`).textContent = value;
+            saveState();
+            renderFruitStats();
+        }
+
+        // ========== CALCULATIONS ==========
+        function calcVictoryStreak() {
+            const sorted = [...state.victoryEntries].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const dateMap = {};
+            sorted.forEach(e => {
+                const d = new Date(e.date).toDateString();
+                if (!dateMap[d]) dateMap[d] = [];
+                dateMap[d].push(e);
+            });
+
+            let streak = 0;
+            const today = new Date();
+            for (let i = 0; i < 365; i++) {
+                const check = new Date(today);
+                check.setDate(check.getDate() - i);
+                const entries = dateMap[check.toDateString()];
+                if (!entries) { if (i === 0 || streak === 0) continue; break; }
+                if (entries.some(e => e.type === 'struggle')) break;
+                if (entries.some(e => e.type === 'victory')) streak++;
+            }
+            return streak;
+        }
+
+        function calcLongestStreak() {
+            const sorted = [...state.victoryEntries].sort((a, b) => new Date(a.date) - new Date(b.date));
+            const dateMap = {};
+            sorted.forEach(e => {
+                const d = new Date(e.date).toDateString();
+                if (!dateMap[d]) dateMap[d] = [];
+                dateMap[d].push(e);
+            });
+
+            let longest = 0, current = 0;
+            Object.keys(dateMap).sort((a, b) => new Date(a) - new Date(b)).forEach(d => {
+                const entries = dateMap[d];
+                if (entries.some(e => e.type === 'struggle')) current = 0;
+                else if (entries.some(e => e.type === 'victory')) { current++; longest = Math.max(longest, current); }
+            });
+            return longest;
+        }
+
+        function calcVictoryRate() {
+            const thirtyDaysAgo = new Date(); thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+            const recent = state.victoryEntries.filter(e => new Date(e.date) >= thirtyDaysAgo);
+            const victories = recent.filter(e => e.type === 'victory').length;
+            return recent.length > 0 ? Math.round((victories / recent.length) * 100) : 0;
+        }
+
+        function calcFruitAvg() {
+            const values = Object.values(state.currentFruits);
+            return values.length > 0 ? (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1) : 0;
+        }
+
+        function calcGratitudeStreak() {
+            const sorted = [...state.gratitudeEntries].sort((a, b) => new Date(b.date) - new Date(a.date));
+            const dates = new Set(sorted.map(e => new Date(e.date).toDateString()));
+            
+            let streak = 0;
+            const today = new Date();
+            for (let i = 0; i < 365; i++) {
+                const check = new Date(today);
+                check.setDate(check.getDate() - i);
+                if (dates.has(check.toDateString())) streak++;
+                else if (i > 0) break;
+            }
+            return streak;
+        }
+
+        // ========== RENDERING ==========
+        function renderAll() {
+            renderDashboard();
+            renderVictory();
+            renderFruit();
+            renderGratitude();
+            renderInsights();
+        }
+
+        function renderDashboard() {
+            // Stats
+            document.getElementById('statVictoryStreak').textContent = calcVictoryStreak();
+            document.getElementById('statFruitAvg').textContent = calcFruitAvg();
+            document.getElementById('statGratitudeStreak').textContent = calcGratitudeStreak();
+            document.getElementById('statVictoryRate').textContent = calcVictoryRate() + '%';
+
+            // Calendar
+            renderCalendar('dashboardCalendar');
+
+            // Recent activity
+            renderRecentActivity();
+        }
+
+        function renderCalendar(containerId) {
+            const container = document.getElementById(containerId);
+            const today = new Date();
+            const firstDay = new Date(today); firstDay.setDate(today.getDate() - 29);
+            const startDay = new Date(firstDay); startDay.setDate(firstDay.getDate() - firstDay.getDay());
+
+            let html = '';
+            let current = new Date(startDay);
+
+            for (let i = 0; i < 35; i++) {
+                const dateStr = current.toDateString();
+                const isToday = dateStr === today.toDateString();
+                const inRange = current >= firstDay && current <= today;
+
+                const hasVictory = state.victoryEntries.some(e => new Date(e.date).toDateString() === dateStr && e.type === 'victory');
+                const hasStruggle = state.victoryEntries.some(e => new Date(e.date).toDateString() === dateStr && e.type === 'struggle');
+                const hasGratitude = state.gratitudeEntries.some(e => new Date(e.date).toDateString() === dateStr);
+                const hasFruit = state.fruitAssessments.some(e => new Date(e.date).toDateString() === dateStr);
+
+                let classes = 'calendar-day';
+                if (isToday) classes += ' today';
+                if (inRange) {
+                    if (hasVictory && hasStruggle) classes += ' mixed';
+                    else if (hasVictory) classes += ' has-victory';
+                    else if (hasStruggle) classes += ' has-struggle';
+                    else if (hasGratitude) classes += ' has-gratitude';
+                    else if (hasFruit) classes += ' has-fruit';
+                }
+
+                let icons = '';
+                if (hasVictory) icons += '✓';
+                if (hasStruggle) icons += '○';
+                if (hasGratitude) icons += '🙏';
+                if (hasFruit) icons += '🍇';
+
+                html += `<div class="${classes}"><div class="date">${current.getDate()}</div><div class="icons">${icons}</div></div>`;
+                current.setDate(current.getDate() + 1);
+            }
+
+            container.innerHTML = html;
+        }
+
+        function renderRecentActivity() {
+            const container = document.getElementById('recentActivity');
+            const all = [
+                ...state.victoryEntries.map(e => ({ ...e, entryType: 'victory-entry' })),
+                ...state.gratitudeEntries.map(e => ({ ...e, entryType: 'gratitude' })),
+                ...state.fruitAssessments.map(e => ({ ...e, entryType: 'fruit' }))
+            ].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
+
+            if (all.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">📝</div><h3>No entries yet</h3><p>Start tracking your spiritual growth!</p></div>';
+                return;
+            }
+
+            container.innerHTML = all.map(e => createEntryHtml(e)).join('');
+        }
+
+        function createEntryHtml(entry) {
+            const date = new Date(entry.date);
+            const timeStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            if (entry.entryType === 'victory-entry') {
+                return `
+                    <div class="entry-item ${entry.type}">
+                        <div class="entry-icon">${entry.type === 'victory' ? '✓' : '○'}</div>
+                        <div class="entry-content">
+                            <div class="entry-header">
+                                <div class="entry-title">${entry.category || 'General'}</div>
+                                <div class="entry-time">${timeStr}</div>
+                            </div>
+                            <div class="entry-details">${entry.type === 'victory' ? 'Victory' : 'Struggle'}</div>
+                            ${entry.triggers?.length ? `<div class="entry-tags">${entry.triggers.map(t => `<span class="entry-tag">${t}</span>`).join('')}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+            } else if (entry.entryType === 'gratitude') {
+                return `
+                    <div class="entry-item gratitude">
+                        <div class="entry-icon">🙏</div>
+                        <div class="entry-content">
+                            <div class="entry-header">
+                                <div class="entry-title">Gratitude Entry</div>
+                                <div class="entry-time">${timeStr}</div>
+                            </div>
+                            <div class="entry-details">${entry.items?.slice(0, 2).join(', ')}</div>
+                        </div>
+                    </div>
+                `;
+            } else if (entry.entryType === 'fruit') {
+                return `
+                    <div class="entry-item fruit">
+                        <div class="entry-icon">🍇</div>
+                        <div class="entry-content">
+                            <div class="entry-header">
+                                <div class="entry-title">Fruit Assessment</div>
+                                <div class="entry-time">${timeStr}</div>
+                            </div>
+                            <div class="entry-details">Average: ${entry.average}/10</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderVictory() {
+            const streak = calcVictoryStreak();
+            document.getElementById('victoryStreakHero').textContent = streak;
+            document.getElementById('victoryStreakLabel').textContent = streak === 1 ? 'Day of Victory' : 'Days of Victory';
+
+            // Milestones
+            document.querySelectorAll('.milestone').forEach(m => {
+                const days = parseInt(m.dataset.days);
+                m.classList.toggle('achieved', streak >= days);
+                m.classList.toggle('next', streak < days && streak >= days - 7);
+            });
+
+            document.getElementById('longestStreak').textContent = calcLongestStreak();
+            document.getElementById('totalVictories').textContent = state.victoryEntries.filter(e => e.type === 'victory').length;
+            document.getElementById('victoryRateCard').textContent = calcVictoryRate() + '%';
+
+            // Entry list
+            const list = document.getElementById('victoryEntryList');
+            const entries = [...state.victoryEntries].reverse().slice(0, 15);
+            
+            if (entries.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="icon">🛡️</div><h3>No entries yet</h3><p>Log your first victory or struggle!</p></div>';
+            } else {
+                list.innerHTML = entries.map(e => createEntryHtml({ ...e, entryType: 'victory-entry' })).join('');
+            }
+        }
+
+        function renderFruit() {
+            renderFruitStats();
+            renderFruitHistory();
+        }
+
+        function renderFruitStats() {
+            const avg = calcFruitAvg();
+            document.getElementById('fruitAvgScore').textContent = avg;
+
+            const scores = FRUITS.map(f => ({ ...f, score: state.currentFruits[f.id] || 5 }));
+            const sorted = [...scores].sort((a, b) => b.score - a.score);
+            
+            document.getElementById('strongestFruit').textContent = sorted[0]?.name || '--';
+            document.getElementById('focusFruit').textContent = sorted[sorted.length - 1]?.name || '--';
+        }
+
+        function renderFruitHistory() {
+            const list = document.getElementById('fruitHistory');
+            const entries = [...state.fruitAssessments].reverse().slice(0, 10);
+
+            if (entries.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="icon">🍇</div><h3>No assessments yet</h3><p>Complete your first fruit assessment!</p></div>';
+            } else {
+                list.innerHTML = entries.map(e => createEntryHtml({ ...e, entryType: 'fruit' })).join('');
+            }
+        }
+
+        function renderGratitude() {
+            document.getElementById('gratitudeStreakNum').textContent = calcGratitudeStreak();
+            document.getElementById('totalGratitudes').textContent = state.gratitudeEntries.length;
+
+            // Mood improvement
+            const withMood = state.gratitudeEntries.filter(e => e.moodBefore && e.moodAfter);
+            if (withMood.length > 0) {
+                const avgImprovement = withMood.reduce((sum, e) => sum + (e.moodAfter - e.moodBefore), 0) / withMood.length;
+                document.getElementById('avgMoodImprovement').textContent = avgImprovement > 0 ? `+${avgImprovement.toFixed(1)}` : avgImprovement.toFixed(1);
+            }
+
+            // History
+            const list = document.getElementById('gratitudeHistory');
+            const entries = [...state.gratitudeEntries].reverse().slice(0, 15);
+
+            if (entries.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="icon">🙏</div><h3>No entries yet</h3><p>Start your gratitude journal!</p></div>';
+            } else {
+                list.innerHTML = entries.map(e => `
+                    <div class="entry-item gratitude">
+                        <div class="entry-icon">🙏</div>
+                        <div class="entry-content">
+                            <div class="entry-header">
+                                <div class="entry-title">Gratitude Entry</div>
+                                <div class="entry-time">${new Date(e.date).toLocaleDateString()}</div>
+                            </div>
+                            <div class="entry-details">
+                                ${e.items.map((item, i) => `<div>${i + 1}. ${item}</div>`).join('')}
+                            </div>
+                            ${e.moodBefore && e.moodAfter ? `<div style="margin-top: 8px; font-size: 0.85rem;">Mood: ${getMoodEmoji(e.moodBefore)} → ${getMoodEmoji(e.moodAfter)}</div>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function getMoodEmoji(mood) {
+            return ['', '😔', '😐', '🙂', '😊', '🥰'][mood] || '';
+        }
+
+        function renderInsights() {
+            renderTriggerAnalysis();
+            renderTimeHeatmap();
+            renderWeeklyChart();
+            renderCorrelations();
+        }
+
+        function renderTriggerAnalysis() {
+            const container = document.getElementById('triggerAnalysis');
+            const struggles = state.victoryEntries.filter(e => e.type === 'struggle');
+
+            if (struggles.length < 3) {
+                container.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">Log more entries to see trigger patterns</p>';
+                return;
+            }
+
+            const counts = {};
+            struggles.forEach(e => e.triggers?.forEach(t => counts[t] = (counts[t] || 0) + 1));
+            const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const max = sorted[0]?.[1] || 1;
+
+            container.innerHTML = sorted.map(([trigger, count]) => `
+                <div class="correlation-bar">
+                    <div class="correlation-label">${trigger}</div>
+                    <div class="correlation-track"><div class="correlation-fill negative" style="width: ${(count / max) * 100}%"></div></div>
+                    <div class="correlation-value">${count}x</div>
+                </div>
+            `).join('');
+        }
+
+        function renderTimeHeatmap() {
+            const container = document.getElementById('timeHeatmap');
+            const struggles = state.victoryEntries.filter(e => e.type === 'struggle');
+            const hourCounts = Array(24).fill(0);
+            struggles.forEach(e => { const h = new Date(e.date).getHours(); hourCounts[h]++; });
+            const max = Math.max(...hourCounts) || 1;
+
+            container.innerHTML = hourCounts.map((c, h) => {
+                const intensity = c / max;
+                let cls = 'time-cell';
+                if (intensity > 0.6) cls += ' high';
+                else if (intensity > 0.3) cls += ' medium';
+                else if (intensity > 0) cls += ' low';
+                return `<div class="${cls}" title="${h}:00 - ${c} struggles"></div>`;
+            }).join('');
+        }
+
+        function renderWeeklyChart() {
+            const container = document.getElementById('weeklyChart');
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const stats = Array(7).fill(0).map(() => ({ victories: 0, struggles: 0 }));
+
+            state.victoryEntries.forEach(e => {
+                const d = new Date(e.date).getDay();
+                if (e.type === 'victory') stats[d].victories++;
+                else stats[d].struggles++;
+            });
+
+            container.innerHTML = stats.map((s, i) => {
+                const total = s.victories + s.struggles;
+                const rate = total > 0 ? Math.round((s.victories / total) * 100) : 50;
+                const color = rate > 70 ? 'var(--success)' : rate > 40 ? 'var(--warning)' : 'var(--danger)';
+                return `
+                    <div style="flex: 1; text-align: center;">
+                        <div style="font-size: 0.75rem; color: var(--text-secondary);">${days[i]}</div>
+                        <div style="height: 80px; background: var(--bg-card); border-radius: 6px; margin: 8px 0; position: relative;">
+                            <div style="position: absolute; bottom: 0; width: 100%; background: ${color}; border-radius: 6px; height: ${rate}%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; font-weight: bold; color: ${color};">${rate}%</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderCorrelations() {
+            // Gratitude-Victory connection
+            const gratDates = new Set(state.gratitudeEntries.map(e => new Date(e.date).toDateString()));
+            const vicWithGrat = state.victoryEntries.filter(e => gratDates.has(new Date(e.date).toDateString()));
+            const vicWithoutGrat = state.victoryEntries.filter(e => !gratDates.has(new Date(e.date).toDateString()));
+
+            const rateWith = vicWithGrat.length > 0 ? Math.round((vicWithGrat.filter(e => e.type === 'victory').length / vicWithGrat.length) * 100) : 0;
+            const rateWithout = vicWithoutGrat.length > 0 ? Math.round((vicWithoutGrat.filter(e => e.type === 'victory').length / vicWithoutGrat.length) * 100) : 0;
+
+            if (rateWith > rateWithout && vicWithGrat.length > 3) {
+                document.getElementById('gratitudeVictoryInsight').innerHTML = 
+                    `Your victory rate is <span class="highlight">${rateWith - rateWithout}% higher</span> on days you practice gratitude! Gratitude strengthens your spiritual armor.`;
+            }
+
+            // Growth summary
+            const totalVictories = state.victoryEntries.filter(e => e.type === 'victory').length;
+            const totalGratitudes = state.gratitudeEntries.length;
+            const totalFruits = state.fruitAssessments.length;
+
+            if (totalVictories + totalGratitudes + totalFruits > 10) {
+                document.getElementById('growthSummary').innerHTML = 
+                    `You've logged <span class="highlight">${totalVictories} victories</span>, <span class="highlight">${totalGratitudes} gratitude entries</span>, and <span class="highlight">${totalFruits} fruit assessments</span>. Keep growing! 🌱`;
+            }
+        }
+
+        // ========== VICTORY LOGGING ==========
+        function openVictoryLog(type) {
+            currentLog = { type, category: null, triggers: [], severity: null };
+
+            document.getElementById('victoryModalTitle').textContent = type === 'victory' ? '✓ Log Victory' : '📝 Log Struggle';
+            document.getElementById('victoryModalSubtitle').textContent = type === 'victory' ? 'You resisted temptation!' : 'Tracking for growth';
+            document.getElementById('severitySection').style.display = type === 'struggle' ? 'block' : 'none';
+
+            // Reset form
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('.trigger-tag').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('.severity-option').forEach(b => b.classList.remove('selected'));
+            document.getElementById('victoryNotes').value = '';
+
+            openModal('victoryModal');
+        }
+
+        function selectCategory(cat) {
+            currentLog.category = cat;
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.toggle('selected', b.dataset.cat === cat));
+        }
+
+        function toggleTrigger(trig) {
+            const idx = currentLog.triggers.indexOf(trig);
+            if (idx >= 0) currentLog.triggers.splice(idx, 1);
+            else currentLog.triggers.push(trig);
+            document.querySelectorAll('.trigger-tag').forEach(b => b.classList.toggle('selected', currentLog.triggers.includes(b.dataset.trig)));
+        }
+
+        function selectSeverity(sev) {
+            currentLog.severity = sev;
+            document.querySelectorAll('.severity-option').forEach(b => {
+                const s = parseInt(b.dataset.sev);
+                b.classList.remove('selected', 'low', 'medium');
+                if (s === sev) {
+                    b.classList.add('selected');
+                    if (sev <= 2) b.classList.add('low');
+                    else if (sev === 3) b.classList.add('medium');
+                }
+            });
+        }
+
+        function saveVictoryEntry() {
+            if (!currentLog.category) { alert('Please select a category'); return; }
+
+            state.victoryEntries.push({
+                id: Date.now(),
+                type: currentLog.type,
+                category: currentLog.category,
+                triggers: currentLog.triggers,
+                severity: currentLog.severity,
+                notes: document.getElementById('victoryNotes').value,
+                date: new Date().toISOString()
+            });
+
+            saveState();
+            closeModal('victoryModal');
+            renderAll();
+
+            if (currentLog.type === 'victory') {
+                showCelebration('🛡️', 'Victory Logged!', 'You\'re growing stronger in Christ!');
+            } else {
+                showCelebration('💜', 'Entry Saved', 'God\'s grace is sufficient. Keep going!');
+            }
+        }
+
+        function logEmergencyVictory() {
+            state.victoryEntries.push({
+                id: Date.now(),
+                type: 'victory',
+                category: 'other',
+                triggers: [],
+                notes: 'Used emergency battle plan',
+                date: new Date().toISOString()
+            });
+            saveState();
+            closeModal('emergencyModal');
+            renderAll();
+            showCelebration('🛡️', 'You Resisted!', 'God\'s Word was your weapon!');
+        }
+
+        // ========== FRUIT ASSESSMENT ==========
+        function openFruitAssessment() {
+            const form = document.getElementById('fruitAssessmentForm');
+            form.innerHTML = FRUITS.map(f => `
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.5rem;">${f.emoji}</span>
+                        <span><strong>${f.name}</strong> — ${f.question}</span>
+                    </label>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span>1</span>
+                        <input type="range" class="fruit-slider ${f.id}" min="1" max="10" value="${state.currentFruits[f.id] || 5}" 
+                            id="modal-${f.id}" oninput="document.getElementById('modalScore-${f.id}').textContent = this.value"
+                            style="flex: 1;">
+                        <span>10</span>
+                        <span id="modalScore-${f.id}" style="font-size: 1.2rem; font-weight: bold; width: 30px; text-align: center;">${state.currentFruits[f.id] || 5}</span>
+                    </div>
+                </div>
+            `).join('');
+            openModal('fruitModal');
+        }
+
+        function saveFruitAssessment() {
+            const scores = {};
+            FRUITS.forEach(f => {
+                const val = parseInt(document.getElementById(`modal-${f.id}`).value);
+                scores[f.id] = val;
+                state.currentFruits[f.id] = val;
+            });
+
+            const values = Object.values(scores);
+            const avg = (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1);
+
+            state.fruitAssessments.push({
+                id: Date.now(),
+                scores,
+                average: avg,
+                date: new Date().toISOString()
+            });
+
+            saveState();
+            initFruits();
+            closeModal('fruitModal');
+            renderAll();
+            showCelebration('🍇', 'Assessment Saved!', `Your average score: ${avg}/10`);
+        }
+
+        // ========== GRATITUDE ==========
+        function selectMood(type, mood) {
+            if (type === 'before') currentMoodBefore = mood;
+            const container = document.getElementById(type === 'before' ? 'gratitudeMoodBefore' : 'gratitudeMoodAfter');
+            container.querySelectorAll('.mood-btn').forEach(b => b.classList.toggle('selected', parseInt(b.dataset.mood) === mood));
+        }
+
+        function saveGratitudeEntry() {
+            const items = [
+                document.getElementById('gratitude1').value.trim(),
+                document.getElementById('gratitude2').value.trim(),
+                document.getElementById('gratitude3').value.trim()
+            ].filter(i => i);
+
+            if (items.length === 0) { alert('Please enter at least one gratitude'); return; }
+
+            state.gratitudeEntries.push({
+                id: Date.now(),
+                items,
+                moodBefore: currentMoodBefore,
+                moodAfter: null,
+                date: new Date().toISOString()
+            });
+
+            // Reset
+            document.getElementById('gratitude1').value = '';
+            document.getElementById('gratitude2').value = '';
+            document.getElementById('gratitude3').value = '';
+            currentMoodBefore = null;
+            document.querySelectorAll('#gratitudeMoodBefore .mood-btn').forEach(b => b.classList.remove('selected'));
+
+            saveState();
+            renderAll();
+            showCelebration('🙏', 'Gratitude Saved!', 'A thankful heart is a happy heart!');
+        }
+
+        // ========== UI HELPERS ==========
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+        }
+
+        function openModal(id) { document.getElementById(id).classList.add('show'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+        function openQuickMenu() { openModal('quickMenuModal'); }
+        function openSettings() { openModal('settingsModal'); }
+        function openEmergencyModal() { openModal('emergencyModal'); }
+
+        function showCelebration(emoji, title, text) {
+            document.getElementById('celebrationEmoji').textContent = emoji;
+            document.getElementById('celebrationTitle').textContent = title;
+            document.getElementById('celebrationText').textContent = text;
+            openModal('celebrationModal');
+        }
+
+        // ========== PRIVACY ==========
+        function quickHide() {
+            document.body.classList.add('disguised');
+        }
+
+        function checkDisguise(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('disguisePassword').value;
+                if (input === state.settings.hidePassword || !state.settings.hidePassword) {
+                    document.body.classList.remove('disguised');
+                    document.getElementById('disguisePassword').value = '';
+                }
+            }
+        }
+
+        function savePassword() {
+            state.settings.hidePassword = document.getElementById('hidePassword').value;
+            saveState();
+        }
+
+        // ========== DATA ==========
+        function exportData() {
+            const data = JSON.stringify(state, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `spiritual-growth-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+        }
+
+        function resetAllData() {
+            if (!confirm('Delete ALL data? This cannot be undone!')) return;
+            if (!confirm('Really sure?')) return;
+            localStorage.removeItem('spiritualGrowthApp');
+            location.reload();
+        }
+
+        // ========== INIT ==========
+        init();
+    </script>
+</body>
+</html>
